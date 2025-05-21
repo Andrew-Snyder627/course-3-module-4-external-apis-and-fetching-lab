@@ -1,5 +1,5 @@
 // index.js
-const API_KEY = "YOUR_API_KEY_HERE";
+const API_KEY = "299b1d81f8fc5f322edc66b804355202";
 
 // Step 1: Fetch Data from the API
 // - Create a function `fetchWeatherData(city)`
@@ -39,7 +39,7 @@ function displayWeather(data) {
     return;
   }
   const city = data.name;
-  const tempC = (data.main.temp - 273.15).toFixed(1); // From kelvin to C, will implement F later
+  const tempC = (data.main.temp - 273.15).toFixed(0); // From kelvin to C, will implement F later
   const humidity = data.main.humidity;
   const description = data.weather[0].description;
 
