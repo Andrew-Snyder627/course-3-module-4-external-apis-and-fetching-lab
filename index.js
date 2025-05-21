@@ -39,13 +39,13 @@ function displayWeather(data) {
     return;
   }
   const city = data.name;
-  const tempF = (((data.main.temp - 273.15) * 9) / 5 + 32).toFixed(0); // From kelvin to C, will implement F later
+  const tempC = (data.main.temp - 273.15).toFixed(0); // From kelvin to C, will implement F later
   const humidity = data.main.humidity;
   const description = data.weather[0].description;
 
   weatherDisplay.innerHTML = `
   <h2>Weather in ${city}</h2>
-  <p><strong>Temperature:</strong> ${tempF}&deg;F</p>
+  <p><strong>Temperature:</strong> ${temp}&deg;C</p>
   <p><strong>Humidity:</strong> ${humidity}%</p>
   <p><strong>Conditions:</strong> ${description}</p>
   `;
