@@ -39,16 +39,24 @@ function displayWeather(data) {
     return;
   }
   const city = data.name;
-  const tempC = (data.main.temp - 273.15).toFixed(0); // From kelvin to C, will implement F later
+  const tempF = (((data.main.temp - 273.15) * 9) / 5 + 32).toFixed(0); // From kelvin to C, will implement F later
   const humidity = data.main.humidity;
   const description = data.weather[0].description;
 
   weatherDisplay.innerHTML = `
   <h2>Weather in ${city}</h2>
-  <p><strong>Temperature:</strong> ${tempC}&deg;C</p>
+  <p><strong>Temperature:</strong> ${tempF}&deg;F</p>
   <p><strong>Humidity:</strong> ${humidity}%</p>
   <p><strong>Conditions:</strong> ${description}</p>
   `;
+}
+
+function showLoadingSpinner() {
+  document.getElementById("loading-spinner").style.display = "block";
+}
+
+function hideLoadingSpinner() {
+  document.getElementById("loading-spinner").style.display = "none";
 }
 
 // Step 3: Handle User Input
@@ -61,11 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
   button.addEventListener("click", async () => {
     const city = input.value.trim();
     clearDisplay();
+    showLoadingSpinner();
     try {
       const data = await fetchWeatherData(city);
       displayWeather(data);
     } catch (err) {
       displayError(err.message);
+    } finally {
+      hideLoadingSpinner();
     }
   });
 });
@@ -86,6 +97,7 @@ function clearDisplay() {
   const errorDiv = document.getElementById("error-message");
   errorDiv.textContent = "";
   errorDiv.classList.add("hidden");
+  hideLoadingSpinner();
 }
 // Step 5: Optimize Code for Maintainability
 // - Refactor repetitive code into reusable functions
